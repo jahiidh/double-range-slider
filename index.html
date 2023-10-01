@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dSlider | Double range slider, Pure HTML, CSS & JavaScript</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+        .container{
+            width: 80%;
+            margin: 100px auto;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        
+        <div class="double-range">
+          <div class="range-slider">
+            <span class="range-fill"></span>
+          </div>
+          <div class="range-input">
+            <input type="range" class="min" min="0" max="100" value="30" step="1" />
+            <input type="range" class="max" min="0" max="100" value="70" step="1" />
+          </div>
+          <div class="text-input">
+            <label for="min">Min</label>
+            <input type="number" name="min" value="30" />
+            <label for="max">Max</label>
+            <input type="number" name="max" value="70" />
+          </div>
+        </div>
+
+    </div>
+    <script src="./d.slider.js"></script>
+    <script>
+      let step = 1;
+      const range = document.querySelector(".range-fill");
+      const ri = document.querySelectorAll(".range-input input");
+      const ti = document.querySelectorAll(".text-input input");
+
+      dRange(range, ri, ti, step);
+    </script>
+  </body>
+</html>
