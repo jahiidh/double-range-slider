@@ -11,10 +11,7 @@ A complete solution for double range slider. Here you can grab the slider, chang
 You can start using it with CDN
 
 ```html
-<link
-  href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css"
-  rel="stylesheet"
-/>
+<link href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css" rel="stylesheet"/>
 ```
 
 ```html
