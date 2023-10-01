@@ -1,7 +1,25 @@
-# Double Rrange Slider
+# Double Range Slider
+
 A complete solution for double range slider. Here you can grab the slider, change via input field. It's dynamic, you can set even range step. and min value will never override the maximum and maximum as well as never get less than minimum.
 
+## Demo Screenshot
+
+![Screenshot](./media/demo-screenshot.png)
+
 ## Installation
+
+You can start using it with CDN
+
+```html
+<link
+  href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css"
+  rel="stylesheet"
+/>
+```
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.js"></script>
+```
 
 ```html
 <div class="double-range">
@@ -30,8 +48,8 @@ const ti = document.querySelectorAll(".text-input input");
 dRange(range, ri, ti, step);
 ```
 
-
 ## Complete code
+
 If you don't want to download, then just copy the html from just before I mentioned. Then copy this css code and past inside your style tag or in css file. and the last, copy the JavaScrit code. It's a vanilla JS, so don't need worry about any third party library.
 
 ```css
@@ -48,7 +66,7 @@ If you don't want to download, then just copy the html from just before I mentio
   right: 30%;
   position: absolute;
   border-radius: 5px;
-  background-color: #ffc013;
+  background-color: #02753c;
 }
 .range-input {
   position: relative;
@@ -67,7 +85,8 @@ If you don't want to download, then just copy the html from just before I mentio
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background-color: #ffc013;
+  background-color: #e90000;
+  border: 4px solid #02753c;
   pointer-events: auto;
   -webkit-appearance: none;
   cursor: pointer;
@@ -76,7 +95,8 @@ If you don't want to download, then just copy the html from just before I mentio
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background-color: #ffc013;
+  background-color: #e90000;
+  border: 2px solid #332e1f;
   pointer-events: auto;
   -moz-appearance: none;
   cursor: pointer;
@@ -99,50 +119,50 @@ dRange(range, ri, ti, step);
 
 function dRange(range, ri, ti, step) {
   ri.forEach((z) => {
-      z.addEventListener("input", (e) => {
+    z.addEventListener("input", (e) => {
       let minRange = parseInt(ri[0].value);
       let maxRange = parseInt(ri[1].value);
       if (maxRange - minRange < step) {
-          if (e.target.className === "min") {
+        if (e.target.className === "min") {
           ri[0].value = maxRange - step;
-          } else {
+        } else {
           ri[1].value = minRange + step;
-          }
+        }
       } else {
-          ti[0].value = minRange;
-          ti[1].value = maxRange;
-          range.style.left = (minRange / parseInt(ri[0].max)) * 100 + "%";
-          range.style.right = 100 - (maxRange / parseInt(ri[1].max)) * 100 + "%";
+        ti[0].value = minRange;
+        ti[1].value = maxRange;
+        range.style.left = (minRange / parseInt(ri[0].max)) * 100 + "%";
+        range.style.right = 100 - (maxRange / parseInt(ri[1].max)) * 100 + "%";
       }
-      });
+    });
   });
 
   ti.forEach((z) => {
-      z.addEventListener("input", (e) => {
+    z.addEventListener("input", (e) => {
       let minval = parseInt(ti[0].value);
       let maxval = parseInt(ti[1].value);
 
       if (maxval - minval >= step && maxval <= parseInt(ri[1].max)) {
-          if (e.target.name === "min") {
+        if (e.target.name === "min") {
           ri[0].value = minval;
           range.style.left = (minval / parseInt(ri[0].max)) * 100 + "%";
-          } else {
+        } else {
           ri[1].value = maxval;
           range.style.right = 100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
-          }
+        }
       } else {
-          if (minval >= maxval) {
+        if (minval >= maxval) {
           minval = maxval - 1;
           ti[0].value = minval;
           ri[0].value = minval;
           range.style.left = (minval / parseInt(ri[0].max)) * 100 + "%";
 
           if (e.target.name == "max") {
-              ri[1].value = maxval;
-              range.style.right =
+            ri[1].value = maxval;
+            range.style.right =
               100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
           }
-          } else if (maxval > parseInt(ri[1].max)) {
+        } else if (maxval > parseInt(ri[1].max)) {
           maxval = parseInt(ri[1].max);
 
           ti[1].value = maxval;
@@ -150,13 +170,13 @@ function dRange(range, ri, ti, step) {
           ri[1].value = maxval;
           range.style.right = 100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
           console.log("hello1");
-          } else {
+        } else {
           console.log("hello");
-          }
+        }
       }
-      });
+    });
   });
-  }
+}
 ```
 
 Have a good day. Enjoy!
