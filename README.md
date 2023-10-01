@@ -2,6 +2,13 @@
 A complete solution for double range slider. Here you can grab the slider, change via input field. It's dynamic, you can set even range step. and min value will never override the maximum and maximum as well as never get less than minimum.
 
 ## Installation
+You can start using it with CDN
+```html
+<link href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css" rel="stylesheet"/>
+```
+```html
+<script src="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.js"></script>
+```
 
 ```html
 <div class="double-range">
