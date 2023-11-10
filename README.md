@@ -1,4 +1,4 @@
-# Double Range Slider
+# Double Range Slider v.2.0
 
 A complete solution for double range slider. Here you can grab the slider, change via input field. It's dynamic, you can set even range step. and min value will never override the maximum and maximum as well as never get less than minimum.
 
@@ -11,7 +11,7 @@ A complete solution for double range slider. Here you can grab the slider, chang
 You can start using it with CDN
 
 ```html
-<link href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/jahiidh/double-range-slider/d.slider.css" rel="stylesheet" />
 ```
 
 ```html
@@ -38,11 +38,11 @@ You can start using it with CDN
 
 ```javascript
 let step = 1;
-const range = document.querySelector(".range-fill");
-const ri = document.querySelectorAll(".range-input input");
-const ti = document.querySelectorAll(".text-input input");
+const range = document.querySelector(".double-range .range-fill");
+const range_input = document.querySelectorAll(".double-range .range-input input");
+const text_input = document.querySelectorAll(".double-range .text-input input");
 
-dRange(range, ri, ti, step);
+dRange(range, range_input, text_input, step);
 ```
 
 ## Complete code
@@ -109,70 +109,61 @@ If you don't want to download, then just copy the html from just before I mentio
 
 ```javascript
 let step = 1;
-const range = document.querySelector(".range-fill");
-const ri = document.querySelectorAll(".range-input input");
-const ti = document.querySelectorAll(".text-input input");
-dRange(range, ri, ti, step);
+const range = document.querySelector(".double-range .range-fill");
+const range_input = document.querySelectorAll(".double-range .range-input input");
+const text_input = document.querySelectorAll(".double-range .text-input input");
+
+dRange(range, range_input, text_input, step);
 
 function dRange(range, ri, ti, step) {
   ri.forEach((z) => {
     z.addEventListener("input", (e) => {
-      let minRange = parseInt(ri[0].value);
-      let maxRange = parseInt(ri[1].value);
-      if (maxRange - minRange < step) {
-        if (e.target.className === "min") {
-          ri[0].value = maxRange - step;
-        } else {
-          ri[1].value = minRange + step;
-        }
-      } else {
-        ti[0].value = minRange;
-        ti[1].value = maxRange;
-        range.style.left = (minRange / parseInt(ri[0].max)) * 100 + "%";
-        range.style.right = 100 - (maxRange / parseInt(ri[1].max)) * 100 + "%";
-      }
+      ti[0].value = ri[0].value;
+      ti[1].value = ri[1].value;
+      update_dRange();
     });
   });
 
   ti.forEach((z) => {
     z.addEventListener("input", (e) => {
-      let minval = parseInt(ti[0].value);
-      let maxval = parseInt(ti[1].value);
-
-      if (maxval - minval >= step && maxval <= parseInt(ri[1].max)) {
-        if (e.target.name === "min") {
-          ri[0].value = minval;
-          range.style.left = (minval / parseInt(ri[0].max)) * 100 + "%";
-        } else {
-          ri[1].value = maxval;
-          range.style.right = 100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
-        }
-      } else {
-        if (minval >= maxval) {
-          minval = maxval - 1;
-          ti[0].value = minval;
-          ri[0].value = minval;
-          range.style.left = (minval / parseInt(ri[0].max)) * 100 + "%";
-
-          if (e.target.name == "max") {
-            ri[1].value = maxval;
-            range.style.right =
-              100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
-          }
-        } else if (maxval > parseInt(ri[1].max)) {
-          maxval = parseInt(ri[1].max);
-
-          ti[1].value = maxval;
-
-          ri[1].value = maxval;
-          range.style.right = 100 - (maxval / parseInt(ri[1].max)) * 100 + "%";
-          console.log("hello1");
-        } else {
-          console.log("hello");
-        }
-      }
+      ri[0].value = ti[0].value;
+      ri[1].value = ti[1].value;
+      update_dRange();
     });
   });
+  ti.forEach((z) => {
+    z.addEventListener("change", (e) => {
+      update_dRange(true);
+    });
+  });
+
+  let update_dRange = (change = false) => {
+    let def_min = parseFloat(ri[0].min);
+    let def_max = parseFloat(ri[0].max);
+
+    let minval = parseFloat(ri[0].value);
+    let maxval = parseFloat(ri[1].value);
+
+    let step_per_percentage = 100 / (def_max - def_min);
+
+    if (def_min >= minval) {
+      minval = def_min;
+      if (change) {
+        ti[0].value = def_min;
+        ri[0].value = def_min;
+      }
+    }
+    if (maxval <= def_min) {
+      maxval = def_min + parseFloat(step);
+      if (change) {
+        ti[1].value = maxval;
+        ri[1].value = maxval;
+      }
+    }
+    range.style.left = (minval - def_min) * step_per_percentage + "%";
+    range.style.right = 100 - (maxval - def_min) * step_per_percentage + "%";
+  };
+  update_dRange();
 }
 ```
 
